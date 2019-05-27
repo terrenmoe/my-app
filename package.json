@@ -129,5 +129,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage" : "http://terrenmoe.github.io/my-app"
 }
