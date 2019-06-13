@@ -7,6 +7,7 @@
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
+    "airbnb-prop-types": "^2.13.2",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
@@ -18,6 +19,7 @@
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "2.50.1",
@@ -66,9 +68,6 @@
     "build": "node scripts/build.js",
     "deploy": "npm run build && gh-pages -d build",
     "test": "node scripts/test.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -135,5 +134,4 @@
     ]
   },
   "homepage": "http://terrenmoe.github.io/my-app"
-
 }
