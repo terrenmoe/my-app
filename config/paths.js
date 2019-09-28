@@ -7,7 +7,7 @@ const url = require('url');
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
@@ -15,14 +15,13 @@ function ensureSlash(inputPath, needsSlash) {
   const hasSlash = inputPath.endsWith('/');
   if (hasSlash && !needsSlash) {
     return inputPath.substr(0, inputPath.length - 1);
-  } else if (!hasSlash && needsSlash) {
+  } if (!hasSlash && needsSlash) {
     return `${inputPath}/`;
-  } else {
-    return inputPath;
   }
+  return inputPath;
 }
 
-const getPublicUrl = appPackageJson =>
+const getPublicUrl = (appPackageJson) =>
   envPublicUrl || require(appPackageJson).homepage;
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
@@ -54,9 +53,8 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
-  const extension = moduleFileExtensions.find(extension =>
-    fs.existsSync(resolveFn(`${filePath}.${extension}`))
-  );
+  const extension = moduleFileExtensions.find((ext) =>
+    fs.existsSync(resolveFn(`${filePath}.${ext}`)));
 
   if (extension) {
     return resolveFn(`${filePath}.${extension}`);
@@ -84,7 +82,6 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
-
 
 
 module.exports.moduleFileExtensions = moduleFileExtensions;

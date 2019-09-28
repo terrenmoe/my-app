@@ -18,11 +18,12 @@ ol, ul {
 }
 
 .square {
+  color: #aaa;
   background: #fff;
   border: 1px solid #999;
   float: left;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 800;
   line-height: 34px;
   height: 34px;
   margin-right: -1px;
@@ -35,6 +36,7 @@ ol, ul {
 .square:focus {
   outline: none;
 }
+
 
 .kbd-navigation .square:focus {
   background: #ddd;

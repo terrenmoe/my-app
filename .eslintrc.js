@@ -1,18 +1,42 @@
 'use strict';
 
+// The complete configuration hierarchy, from highest precedence
+// to lowest precedence:
+//    1 Inline configuration
+//        1 /*eslint-disable*/ and /*eslint-enable*/
+//        2 /*global*/
+//        3 /*eslint*/
+//        4 /*eslint-env*/
+//    2 Command line options (or CLIEngine equivalents):
+//        1 --global
+//        2 --rule
+//        3 --env
+//        4 -c, --config
+//    3 Project-level configuration:
+//        1 .eslintrc.* or package.json file in same directory as
+//          linted file
+//        2 Continue searching for .eslintrc and package.json
+//          files in ancestor directories (parent has highest
+//          precedence, then grandparent, etc.), up to and
+//          including the root directory or until a config with
+//          "root": true is found.
+//    4 In the absence of any configuration from (1) through (3),
+//    fall back to a personal default configuration in
+//    ~/.eslintrc.
+
 module.exports = {
   extends: ['airbnb','react-app'],
   parser: 'babel-eslint',
+  root: true,
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 7,
     sourceType: 'script',
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
     },
   },
   env: {
-    es6: true,
-    node: true,
+    ['shared-node-browser']: true,
   },
   overrides: [
     {
@@ -25,13 +49,18 @@ module.exports = {
     {
       files: ['*.mjs'],
       parserOptions: { sourceType: 'module' },
-      env: {
-        node: true,
-      },
+      env: { node: true },
       rules: {
         'no-restricted-globals': ['error', 'require'],
       },
     },
+
+    {
+      files: ['*.cjs'],
+      parserOptions: { sourceType: 'module' },
+      env: { commonjs: true },
+    },
+
     {
       files: ['*.web.js'],
       env: { browser: true },
@@ -62,15 +91,16 @@ module.exports = {
     }],
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    // 'react/no-unused-prop-types': '',
   },
   globals: {
-    WebAssembly: false,
-    BigInt: false,
-    BigInt64Array: false,
-    BigUint64Array: false,
-    URL: false,
-    Atomics: false,
-    SharedArrayBuffer: false,
-    queueMicrotask: false,
+    WebAssembly: "readonly",
+    BigInt: "readonly",
+    BigInt64Array: "readonly",
+    BigUint64Array: "readonly",
+    URL: "readonly",
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly",
+    queueMicrotask: "readonly",
   },
 };
