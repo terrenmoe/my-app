@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Board from './Board';
 
-export default class Game extends React.Component {
+export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,12 +9,11 @@ export default class Game extends React.Component {
         squares: Array(9).fill(null),
       }],
       stepNumber: 0,
-      xIsNext: true,
     };
   }
 
   handleClick(i) {
-    const { xIsNext, stepNumber, history } = this.state;
+    const { stepNumber, history } = this.state;
     const hist = history.slice(
       0,
       stepNumber + 1,
@@ -25,25 +24,23 @@ export default class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = (xIsNext) ? 'X' : 'O';
+    squares[i] = (stepNumber % 2 === 0) ? 'X' : 'O';
     this.setState({
       history: hist.concat([{
         squares,
       }]),
       stepNumber: hist.length,
-      xIsNext: !xIsNext,
     });
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0,
     });
   }
 
   render() {
-    const { history, stepNumber, xIsNext } = this.state;
+    const { history, stepNumber } = this.state;
     const current = history[stepNumber];
     const winner = calculateWinner(current.squares);
 
@@ -63,7 +60,7 @@ export default class Game extends React.Component {
         </li>
       );
     });
-    const turn = (xIsNext) ? 'X' : 'O';
+    const turn = (stepNumber % 2 === 0) ? 'X' : 'O';
     let status;
     if (winner) {
       status = `Winner: ${winner}`;
