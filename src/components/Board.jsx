@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes, { func } from 'prop-types';
 
 import Square from './Square';
 
-class Board extends React.Component {
+class Board extends Component {
   renderSquare(idx) {
     const { squares, onClick } = this.props;
     return (
